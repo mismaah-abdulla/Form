@@ -66,7 +66,7 @@
                         <td>${email}</td>
                         <td><span id="encodedPassword${rowCounter}">${password}</span><button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${password}', ${rowCounter})" onmouseup="hideDecodedPassword('${password}', ${rowCounter})">Decode</button></td>
                         <td>${age}</td>
-                        <td><button onclick="deleteRow(${rowCounter})">Delete row</button></td>
+                        <td><button style="float:left;" onclick="deleteRow(${rowCounter})">Delete row</button> <button style="float:right;" onclick="editRow(${rowCounter})">Edit row</button></td>
                         </tr>`;
             }
             
@@ -117,12 +117,15 @@
                 row.parentNode.removeChild(row);
             }
 
+            function editRow(){
+                
+            }
+
             
     </script>
 </head>
 <body>
 <h1 id="heading">Form</h1>
-<!-- <h2>Type the numbers into the boxes below and select the mathematical operation.</h2> -->
     <div>Name: 
     <input  id="name" type="text" value=""> </div><br>
     <div>Email: 
