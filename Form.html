@@ -62,7 +62,6 @@
             }
             function getRow(name, email, password, age, rowCounter){
                 return `<tr id="row${rowCounter}">
-                        <td>${rowCounter}</td>
                         <td>${name}</td>
                         <td>${email}</td>
                         <td><span id="encodedPassword${rowCounter}">${password}</span><button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${password}', ${rowCounter})" onmouseup="hideDecodedPassword('${password}', ${rowCounter})">Decode</button></td>
@@ -114,7 +113,8 @@
             }
 
             function deleteRow(rowNumber){
-                document.getElementById(`row${rowNumber}`).innerHTML = "";
+                var row = document.getElementById(`row${rowNumber}`);
+                row.parentNode.removeChild(row);
             }
 
             
@@ -138,7 +138,6 @@
     <table >
         <thead>
             <tr>
-                <th style="width: 100px;">Row</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th style="width: 250px;">Password</th>
