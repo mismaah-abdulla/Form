@@ -1,0 +1,157 @@
+<html>
+<head>
+    <style>
+    table, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        
+    }
+    th {
+        width: 200px;
+        border: 1px solid black;
+    }
+    p {
+        color:red;
+    }
+    button {
+        text-align: right;
+    }
+    </style>
+    <script>
+            const NAME_MAX = 30;
+            const NAME_MIN = 5;
+            const VALID_EMAIL = /\S+@\S+\.\S+/;
+            var rowCounter = 1
+            function submitForm() {
+                var name = document.getElementById("name");
+                var email = document.getElementById("email");
+                var password = document.getElementById("password");
+                var encodedPassword = encodePassword(password.value);
+                var date = document.getElementById("birthDate").value;
+                
+                if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
+                    document.getElementById("error").innerHTML = "Please fill all fields.";
+                    return;
+                }
+                
+                if (!isValidName(name.value)) {
+                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.    `;
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    document.getElementById("error").innerHTML = `Must be a valid email.`
+                    return;
+                }
+                
+                var inputDate = new Date(date);
+                var userAge = getAge(inputDate);
+                document.getElementById("tableRows").innerHTML += getRow(name.value, email.value, encodedPassword, userAge, rowCounter);
+                rowCounter++
+                
+                document.getElementById("error").innerHTML = "";
+                clearField(name);
+                clearField(email);
+                clearField(password);
+            }
+            function getAge(birthDate) {
+                var currentDate = new Date();
+                var age = currentDate.getFullYear() - birthDate.getFullYear();
+                return age;
+
+            }
+            function getRow(name, email, password, age, rowCounter){
+                return `<tr id="row${rowCounter}">
+                        <td>${rowCounter}</td>
+                        <td>${name}</td>
+                        <td>${email}</td>
+                        <td><span id="encodedPassword${rowCounter}">${password}</span><button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${password}', ${rowCounter})" onmouseup="hideDecodedPassword('${password}', ${rowCounter})">Decode</button></td>
+                        <td>${age}</td>
+                        <td><button onclick="deleteRow(${rowCounter})">Delete row</button></td>
+                        </tr>`;
+            }
+            
+            function checkEmpty(field){
+                return field === "";
+            }
+
+            function clearField(field){
+                field.value = "";
+            }
+
+            function isValidName(name){
+                return name.length < NAME_MAX && name.length > NAME_MIN;
+            }
+
+            function isValidEmail(email){
+                return VALID_EMAIL.test(String(email.value).toLowerCase());
+            }
+
+            function showPassword(){
+                document.getElementById("password").type = "text";
+            }
+
+            function hidePassword(){
+                document.getElementById("password").type = "password";
+            }
+
+            function encodePassword(password){
+                var encodedPassword = window.btoa(password);
+                return encodedPassword;
+            }
+
+            function decodePassword(password){
+                var decodedPassword = window.atob(password);
+                return decodedPassword;
+            }
+
+            function decodeEncodedPassword(password, counter){
+                document.getElementById(`encodedPassword${counter}`).innerHTML = decodePassword(password);
+            }
+
+            function hideDecodedPassword(password, counter){
+                document.getElementById(`encodedPassword${counter}`).innerHTML = encodePassword(password);
+            }
+
+            function deleteRow(rowNumber){
+                document.getElementById(`row${rowNumber}`).innerHTML = "";
+            }
+
+            
+    </script>
+</head>
+<body>
+<h1 id="heading">Form</h1>
+<!-- <h2>Type the numbers into the boxes below and select the mathematical operation.</h2> -->
+    <div>Name: 
+    <input  id="name" type="text" value=""> </div><br>
+    <div>Email: 
+    <input id="email" type="text" value=""> </div><br>
+    <div>Password:
+    <input id="password" type="password" value=""> <button onmousedown="showPassword()" onmouseup="hidePassword()">Show</button></div><br> 
+    <div>Date of birth: 
+    <input id="birthDate" type="date" value=""></div><br>
+    <button onclick="submitForm()">Submit</button>
+    <br>
+    <p id="error"></p>
+    <br>
+    <table >
+        <thead>
+            <tr>
+                <th style="width: 100px;">Row</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th style="width: 250px;">Password</th>
+                <th style="width: 100px;">Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableRows">
+
+        </tbody>
+        
+        
+    </table>
+
+</body>
+</html>
