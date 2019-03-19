@@ -13,6 +13,8 @@
     p {
         color:red;
     }
+    
+    #row51.nameCell
     button {
         text-align: right;
     }
@@ -26,7 +28,6 @@
                 var name = document.getElementById("name");
                 var email = document.getElementById("email");
                 var password = document.getElementById("password");
-                var encodedPassword = encodePassword(password.value);
                 var date = document.getElementById("birthDate").value;
                 
                 if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
@@ -35,7 +36,7 @@
                 }
                 
                 if (!isValidName(name.value)) {
-                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.    `;
+                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
                     return;
                 }
 
@@ -46,7 +47,7 @@
                 
                 var inputDate = new Date(date);
                 var userAge = getAge(inputDate);
-                document.getElementById("tableRows").innerHTML += getRow(name.value, email.value, encodedPassword, userAge, rowCounter);
+                document.getElementById("tableRows").innerHTML += getRow(name.value, email.value, password.value, userAge, rowCounter);
                 rowCounter++
                 
                 document.getElementById("error").innerHTML = "";
@@ -61,10 +62,14 @@
 
             }
             function getRow(name, email, password, age, rowCounter){
+                var encodedPassword = encodePassword(password);
                 return `<tr id="row${rowCounter}">
-                        <td>${name}</td>
-                        <td>${email}</td>
-                        <td><span id="encodedPassword${rowCounter}">${password}</span><button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${password}', ${rowCounter})" onmouseup="hideDecodedPassword('${password}', ${rowCounter})">Decode</button></td>
+                        <td class="nameCell">${name}</td>
+                        <td class="emailCell">${email}</td>
+                        <td class="passwordCell">
+                            <span id="encodedPassword${rowCounter}">${encodedPassword}</span>
+                            <button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${encodedPassword}', ${rowCounter})" onmouseup="hideDecodedPassword('${password}', ${rowCounter})">Decode</button>
+                        </td>
                         <td>${age}</td>
                         <td><button style="float:left;" onclick="deleteRow(${rowCounter})">Delete row</button> <button style="float:right;" onclick="editRow(${rowCounter})">Edit row</button></td>
                         </tr>`;
@@ -117,9 +122,20 @@
                 row.parentNode.removeChild(row);
             }
 
-            function editRow(){
-                
+            function editRow(rowNumber){
+                returnRowContent(rowNumber);
+
             }
+
+            function returnRowContent(rowNumber){
+                document.getElementById("name").value = document.querySelector(`#row${rowNumber} .nameCell`).innerHTML;
+                document.getElementById("email").value = document.querySelector(`#row${rowNumber} .emailCell`).innerHTML;
+                var password = document.getElementById(`encodedPassword${rowNumber}`).innerHTML;
+                var decodedPassword = decodePassword(password);
+                document.getElementById("password").value = decodedPassword;
+            }
+
+
 
             
     </script>
