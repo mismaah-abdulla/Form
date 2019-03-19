@@ -73,23 +73,6 @@
                         <td><button style="float:left;" onclick="deleteRow(${rowCounter})">Delete row</button> <button style="float:right;" onclick="editRow(${rowCounter})">Edit row</button></td>
                         </tr>`;
             }
-            
-            // function allValidations(name, email, password, date){
-            //     if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
-            //         document.getElementById("error").innerHTML = "Please fill all fields.";
-            //         return;
-            //     }
-
-            //     if (!isValidName(name.value)) {
-            //         document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
-            //         return;
-            //     }
-
-            //     if (!isValidEmail(email)) {
-            //         document.getElementById("error").innerHTML = `Must be a valid email.`
-            //         return;
-            //     }
-            // }
 
             function checkEmpty(field){
                 return field === "";
