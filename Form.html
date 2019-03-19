@@ -14,7 +14,6 @@
         color:red;
     }
     
-    #row51.nameCell
     button {
         text-align: right;
     }
@@ -30,7 +29,20 @@
                 var password = document.getElementById("password");
                 var date = document.getElementById("birthDate").value;
                 
-                allValidations(name, email, password, date);
+                if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
+                    document.getElementById("error").innerHTML = "Please fill all fields.";
+                    return;
+                }
+                
+                if (!isValidName(name.value)) {
+                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    document.getElementById("error").innerHTML = `Must be a valid email.`
+                    return;
+                }
                 
                 var inputDate = new Date(date);
                 var userAge = getAge(inputDate);
@@ -62,22 +74,22 @@
                         </tr>`;
             }
             
-            function allValidations(name, email, password, date){
-                if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
-                    document.getElementById("error").innerHTML = "Please fill all fields.";
-                    return;
-                }
+            // function allValidations(name, email, password, date){
+            //     if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
+            //         document.getElementById("error").innerHTML = "Please fill all fields.";
+            //         return;
+            //     }
 
-                if (!isValidName(name.value)) {
-                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
-                    return;
-                }
+            //     if (!isValidName(name.value)) {
+            //         document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
+            //         return;
+            //     }
 
-                if (!isValidEmail(email)) {
-                    document.getElementById("error").innerHTML = `Must be a valid email.`
-                    return;
-                }
-            }
+            //     if (!isValidEmail(email)) {
+            //         document.getElementById("error").innerHTML = `Must be a valid email.`
+            //         return;
+            //     }
+            // }
 
             function checkEmpty(field){
                 return field === "";
@@ -177,6 +189,7 @@
                 clearField(document.getElementById("email"));
                 clearField(document.getElementById("password"));
                 document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`
+                document.getElementById("error").innerHTML = "";
             }
 
             
