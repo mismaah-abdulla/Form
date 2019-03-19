@@ -30,20 +30,7 @@
                 var password = document.getElementById("password");
                 var date = document.getElementById("birthDate").value;
                 
-                if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
-                    document.getElementById("error").innerHTML = "Please fill all fields.";
-                    return;
-                }
-                
-                if (!isValidName(name.value)) {
-                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
-                    return;
-                }
-
-                if (!isValidEmail(email)) {
-                    document.getElementById("error").innerHTML = `Must be a valid email.`
-                    return;
-                }
+                allValidations(name, email, password, date);
                 
                 var inputDate = new Date(date);
                 var userAge = getAge(inputDate);
@@ -75,6 +62,23 @@
                         </tr>`;
             }
             
+            function allValidations(name, email, password, date){
+                if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
+                    document.getElementById("error").innerHTML = "Please fill all fields.";
+                    return;
+                }
+
+                if (!isValidName(name.value)) {
+                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    document.getElementById("error").innerHTML = `Must be a valid email.`
+                    return;
+                }
+            }
+
             function checkEmpty(field){
                 return field === "";
             }
@@ -124,7 +128,7 @@
 
             function editRow(rowNumber){
                 returnRowContent(rowNumber);
-
+                changeFormButtonsForEditing(rowNumber);
             }
 
             function returnRowContent(rowNumber){
@@ -135,7 +139,45 @@
                 document.getElementById("password").value = decodedPassword;
             }
 
+            function changeFormButtonsForEditing(rowNumber){
+                document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm()">Cancel</button>`
+            }
 
+            function updateForm(rowNumber){
+                var name = document.getElementById("name");
+                var email = document.getElementById("email");
+                var password = document.getElementById("password");
+                var date = document.getElementById("birthDate").value;
+
+                if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
+                    document.getElementById("error").innerHTML = "Please fill all fields.";
+                    return;
+                }
+
+                if (!isValidName(name.value)) {
+                    document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    document.getElementById("error").innerHTML = `Must be a valid email.`
+                    return;
+                }
+
+                var inputDate = new Date(date);
+                var userAge = getAge(inputDate);
+
+                document.getElementById(`row${rowNumber}`).innerHTML = getRow(name.value, email.value, password.value, userAge, rowNumber);
+
+                cancelUpdateForm();
+            }
+
+            function cancelUpdateForm(){
+                clearField(document.getElementById("name"));
+                clearField(document.getElementById("email"));
+                clearField(document.getElementById("password"));
+                document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`
+            }
 
             
     </script>
@@ -150,7 +192,7 @@
     <input id="password" type="password" value=""> <button onmousedown="showPassword()" onmouseup="hidePassword()">Show</button></div><br> 
     <div>Date of birth: 
     <input id="birthDate" type="date" value=""></div><br>
-    <button onclick="submitForm()">Submit</button>
+    <div id="actionButtons"><button onclick="submitForm()">Submit</button></div>
     <br>
     <p id="error"></p>
     <br>
