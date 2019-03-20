@@ -2,7 +2,6 @@ const NAME_MAX = 30;
 const NAME_MIN = 5;
 const VALID_EMAIL = /\S+@\S+\.\S+/;
 var rowCounter = 1
-var row = [];
 function submitForm() {
     var name = document.getElementById("name");
     var email = document.getElementById("email");
@@ -27,7 +26,6 @@ function submitForm() {
     var inputDate = new Date(date);
     var userAge = getAge(inputDate);
     document.getElementById("tableRows").innerHTML += getRow(name.value, email.value, password.value, userAge, rowCounter);
-    row.push(rowCounter);
     rowCounter++
     
     document.getElementById("error").innerHTML = "";
