@@ -23,6 +23,7 @@
             const NAME_MIN = 5;
             const VALID_EMAIL = /\S+@\S+\.\S+/;
             var rowCounter = 1
+            var row = [];
             function submitForm() {
                 var name = document.getElementById("name");
                 var email = document.getElementById("email");
@@ -47,6 +48,7 @@
                 var inputDate = new Date(date);
                 var userAge = getAge(inputDate);
                 document.getElementById("tableRows").innerHTML += getRow(name.value, email.value, password.value, userAge, rowCounter);
+                row.push(rowCounter);
                 rowCounter++
                 
                 document.getElementById("error").innerHTML = "";
@@ -70,7 +72,7 @@
                             <button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${encodedPassword}', ${rowCounter})" onmouseup="hideDecodedPassword('${password}', ${rowCounter})">Decode</button>
                         </td>
                         <td>${age}</td>
-                        <td><button style="float:left;" onclick="deleteRow(${rowCounter})">Delete row</button> <button style="float:right;" onclick="editRow(${rowCounter})">Edit row</button></td>
+                        <td class=buttonCell>${generateRowButtons(rowCounter)}</td>
                         </tr>`;
             }
 
@@ -117,13 +119,14 @@
             }
 
             function deleteRow(rowNumber){
-                var row = document.getElementById(`row${rowNumber}`);
-                row.parentNode.removeChild(row);
+                var rowToBeDeleted = document.getElementById(`row${rowNumber}`);
+                rowToBeDeleted.parentNode.removeChild(rowToBeDeleted);
             }
 
             function editRow(rowNumber){
                 returnRowContent(rowNumber);
                 changeFormButtonsForEditing(rowNumber);
+                disableRowButtons();
             }
 
             function returnRowContent(rowNumber){
@@ -135,8 +138,32 @@
             }
 
             function changeFormButtonsForEditing(rowNumber){
-                document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm()">Cancel</button>`
+                document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm(${rowNumber})">Cancel</button>`
             }
+
+            function disableRowButtons(){
+                var allButtons = document.querySelectorAll(`.buttonCell`);
+                for (var i=0; i < allButtons.length; i++){
+                    allButtons[i].innerHTML = "";
+                }
+            }
+
+            function enableRowButtons(){
+                var allRows = document.getElementById("tableRows");
+                var rows = allRows.childNodes;
+                for (var x = 1; x < rows.length; x++){
+                    var rowId = rows[x].id.substring(3);
+                
+                    var buttonCells = document.querySelector(`#row${rowId} .buttonCell`);
+                    buttonCells.innerHTML = generateRowButtons(rowId);
+                    
+                }
+            }
+
+            function generateRowButtons(rowNumber){
+                return `<button style="float:left;" onclick="deleteRow(${rowNumber})">Delete row</button> <button style="float:right;" onclick="editRow(${rowNumber})">Edit row</button>`
+            }
+
 
             function updateForm(rowNumber){
                 var name = document.getElementById("name");
@@ -164,15 +191,17 @@
 
                 document.getElementById(`row${rowNumber}`).innerHTML = getRow(name.value, email.value, password.value, userAge, rowNumber);
 
-                cancelUpdateForm();
+                cancelUpdateForm(rowNumber);
+
             }
 
-            function cancelUpdateForm(){
+            function cancelUpdateForm(rowNumber){
                 clearField(document.getElementById("name"));
                 clearField(document.getElementById("email"));
                 clearField(document.getElementById("password"));
                 document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`
                 document.getElementById("error").innerHTML = "";
+                enableRowButtons();
             }
 
             
