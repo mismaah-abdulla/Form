@@ -19,7 +19,8 @@ class User {
         return encodedPassword;
     }
 
-    static get count() {
+    static get COUNT() {
+        return User.count;
     }
 
 }
