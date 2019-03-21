@@ -1,6 +1,3 @@
-const NAME_MAX = 30;
-const NAME_MIN = 5;
-const VALID_EMAIL = /\S+@\S+\.\S+/;
 var rowCounter = 1
 function submitForm() {
     
@@ -9,6 +6,7 @@ function submitForm() {
     var password = document.getElementById("password");
     var date = document.getElementById("birthDate").value;
     
+
     if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
         document.getElementById("error").innerHTML = "Please fill all fields.";
         return;
