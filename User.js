@@ -12,5 +12,9 @@ class User {
         return age;
     }
 
+    get encodePassword(){
+        var encodedPassword = window.btoa(this.password);
+        return encodedPassword;
+    }
 
 }
