@@ -3,6 +3,7 @@ const NAME_MIN = 5;
 const VALID_EMAIL = /\S+@\S+\.\S+/;
 var rowCounter = 1
 function submitForm() {
+    
     var name = document.getElementById("name");
     var email = document.getElementById("email");
     var password = document.getElementById("password");
