@@ -6,7 +6,7 @@ function submitForm() {
     var password = document.getElementById("password");
     var date = document.getElementById("birthDate").value;
     
-
+    
     if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
         document.getElementById("error").innerHTML = "Please fill all fields.";
         return;
