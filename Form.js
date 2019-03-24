@@ -1,4 +1,4 @@
-var rowCounter = 1;
+
 var users = [];
 function submitForm() {
     var name = document.getElementById("name");
@@ -18,7 +18,6 @@ function submitForm() {
     users.push(user);
     
     document.getElementById("tableRows").innerHTML += getRow(user);
-    rowCounter++;
     
     document.getElementById("error").innerHTML = "";
     clearField(name);
