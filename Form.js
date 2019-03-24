@@ -8,14 +8,14 @@ function submitForm() {
     var validation = new UserValidator (name.value, email.value, password.value, date);
     var errorMessage = validation.validate();
     if (errorMessage){
-        document.getElementById("error").innerHTML = errorMessage
+        document.getElementById("error").innerHTML = errorMessage;
         return;
     }
 
-
-    var inputDate = new Date(date);
-    var userAge = getAge(inputDate);
-    document.getElementById("tableRows").innerHTML += getRow(name.value, email.value, password.value, userAge, rowCounter);
+    var inputDate = new Date();
+    var user = new User (name.value, email.value, password.value, inputDate);
+    
+    document.getElementById("tableRows").innerHTML += getRow(user.name, user.email, user.password, user.age, rowCounter);
     rowCounter++;
     
     document.getElementById("error").innerHTML = "";
