@@ -1,4 +1,5 @@
 var rowCounter = 1;
+var users = [];
 function submitForm() {
     var name = document.getElementById("name");
     var email = document.getElementById("email");
@@ -14,21 +15,15 @@ function submitForm() {
 
     var inputDate = new Date();
     var user = new User (name.value, email.value, password.value, inputDate);
+    users.push(user);
     
-    document.getElementById("tableRows").innerHTML += getRow(user.name, user.email, user.password, user.age, rowCounter);
+    document.getElementById("tableRows").innerHTML += getRow(user.name, user.email, user.password, user.age, user.id);
     rowCounter++;
     
     document.getElementById("error").innerHTML = "";
     clearField(name);
     clearField(email);
     clearField(password);
-}
-
-function getAge(birthDate) {
-    var currentDate = new Date();
-    var age = currentDate.getFullYear() - birthDate.getFullYear();
-    return age;
-
 }
 
 function getRow(name, email, password, age, rowCounter){
@@ -134,9 +129,13 @@ function updateForm(rowNumber){
     }
 
     var inputDate = new Date(date);
-    var userAge = getAge(inputDate);
 
-    document.getElementById(`row${rowNumber}`).innerHTML = getRow(name.value, email.value, password.value, userAge, rowNumber);
+    var user = users.find(x => x.id === rowNumber);
+    user.name = name.value;
+    user.email = email.value;
+    user.password = password.value;
+    user.birthDate = inputDate;
+    document.getElementById(`row${rowNumber}`).innerHTML = getRow(user.name, user.email, user.password, user.age, user.id);
 
     cancelUpdateForm(rowNumber);
 
