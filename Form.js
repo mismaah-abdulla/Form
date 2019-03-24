@@ -13,7 +13,7 @@ function submitForm() {
         return;
     }
 
-    var inputDate = new Date();
+    var inputDate = new Date(date);
     var user = new User (name.value, email.value, password.value, inputDate);
     users.push(user);
     
