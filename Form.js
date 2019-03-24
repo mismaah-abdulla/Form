@@ -30,11 +30,21 @@ function getRow(user){
             <td class="emailCell">${user.email}</td>
             <td class="passwordCell">
                 <span id="encodedPassword${user.id}">${user.encodedPassword}</span>
-                <button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${user.encodedPassword}', ${user.id})" onmouseup="hideDecodedPassword('${user.password}', ${user.id})">Decode</button>
+                <button style="float: right;" id="decodePass" onmousedown="decodePassword(${user.id})" onmouseup="encodePassword(${user.id})">Decode</button>
             </td>
             <td>${user.age}</td>
             <td class=buttonCell>${generateRowButtons(user.id)}</td>
             </tr>`;
+}
+
+function encodePassword(userId){
+    var user = users.find(x => x.id === userId);
+    document.getElementById(`encodedPassword${userId}`).innerHTML = user.encodedPassword;
+}
+
+function decodePassword(userId){
+    var user = users.find(x => x.id === userId);
+    document.getElementById(`encodedPassword${userId}`).innerHTML = user.password;
 }
 
 function clearField(field){
@@ -63,11 +73,10 @@ function editRow(rowNumber){
 }
 
 function returnRowContent(rowNumber){
-    document.getElementById("name").value = document.querySelector(`#row${rowNumber} .nameCell`).innerHTML;
-    document.getElementById("email").value = document.querySelector(`#row${rowNumber} .emailCell`).innerHTML;
-    var password = document.getElementById(`encodedPassword${rowNumber}`).innerHTML;
-    var decodedPassword = decodePassword(password);
-    document.getElementById("password").value = decodedPassword;
+    var user = users.find(x => x.id === rowNumber);
+    document.getElementById("name").value = user.name;
+    document.getElementById("email").value = user.email;
+    document.getElementById("password").value = user.password;
 }
 
 function changeFormButtonsForEditing(rowNumber){
