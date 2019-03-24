@@ -1,31 +1,33 @@
-var rowCounter = 1
+var rowCounter = 1;
 function submitForm() {
-    
     var name = document.getElementById("name");
     var email = document.getElementById("email");
     var password = document.getElementById("password");
     var date = document.getElementById("birthDate").value;
-    
-    
-    if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
-        document.getElementById("error").innerHTML = "Please fill all fields.";
-        return;
-    }
-    
-    if (!isValidName(name.value)) {
-        document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
-        return;
-    }
 
-    if (!isValidEmail(email)) {
-        document.getElementById("error").innerHTML = `Must be a valid email.`
-        return;
+    var validation = new UserValidator (name.value, email.value, password.value, date);
+    if (validation.validate()){
+        return document.getElementById("error").innerHTML = validation.validate();
     }
     
+
+    // if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
+    //     document.getElementById("error").innerHTML = "Please fill all fields.";
+    //     return;
+    // }
+    // if (!isValidName(name.value)) {
+    //     document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
+    //     return;
+    // }
+    // if (!isValidEmail(email)) {
+    //     document.getElementById("error").innerHTML = `Must be a valid email.`;
+    //     return;
+    // }
+
     var inputDate = new Date(date);
     var userAge = getAge(inputDate);
     document.getElementById("tableRows").innerHTML += getRow(name.value, email.value, password.value, userAge, rowCounter);
-    rowCounter++
+    rowCounter++;
     
     document.getElementById("error").innerHTML = "";
     clearField(name);
@@ -114,7 +116,7 @@ function returnRowContent(rowNumber){
 }
 
 function changeFormButtonsForEditing(rowNumber){
-    document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm(${rowNumber})">Cancel</button>`
+    document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm(${rowNumber})">Cancel</button>`;
 }
 
 function disableRowButtons(){
