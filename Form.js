@@ -52,6 +52,8 @@ function hidePassword(){
 function deleteRow(rowNumber){
     var rowToBeDeleted = document.getElementById(`row${rowNumber}`);
     rowToBeDeleted.parentNode.removeChild(rowToBeDeleted);
+    var user = users.findIndex(x => x.id === rowNumber);
+    users.splice(user, 1);
 }
 
 function editRow(rowNumber){
