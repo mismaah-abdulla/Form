@@ -18,7 +18,6 @@ function submitForm() {
     users.push(user);
     
     document.getElementById("tableRows").innerHTML += getRow(user);
-    
     document.getElementById("error").innerHTML = "";
     clearField(name);
     clearField(email);
@@ -48,24 +47,6 @@ function showPassword(){
 
 function hidePassword(){
     document.getElementById("password").type = "password";
-}
-
-function encodePassword(password){
-    var encodedPassword = window.btoa(password);
-    return encodedPassword;
-}
-
-function decodePassword(password){
-    var decodedPassword = window.atob(password);
-    return decodedPassword;
-}
-
-function decodeEncodedPassword(password, counter){
-    document.getElementById(`encodedPassword${counter}`).innerHTML = decodePassword(password);
-}
-
-function hideDecodedPassword(password, counter){
-    document.getElementById(`encodedPassword${counter}`).innerHTML = encodePassword(password);
 }
 
 function deleteRow(rowNumber){
