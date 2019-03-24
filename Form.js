@@ -6,9 +6,12 @@ function submitForm() {
     var date = document.getElementById("birthDate").value;
 
     var validation = new UserValidator (name.value, email.value, password.value, date);
-    if (validation.validate()){
-        return document.getElementById("error").innerHTML = validation.validate();
+    var errorMessage = validation.validate();
+    if (errorMessage){
+        document.getElementById("error").innerHTML = errorMessage
+        return;
     }
+
 
     var inputDate = new Date(date);
     var userAge = getAge(inputDate);

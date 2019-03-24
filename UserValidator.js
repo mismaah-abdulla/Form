@@ -22,6 +22,7 @@ class UserValidator {
         if (!this.isValidEmail()){
             return "Must be a valid email.";
         }
+        return null;
     }
 
     areAnyFieldsEmpty (){
