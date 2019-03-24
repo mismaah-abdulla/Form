@@ -9,20 +9,6 @@ function submitForm() {
     if (validation.validate()){
         return document.getElementById("error").innerHTML = validation.validate();
     }
-    
-
-    // if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
-    //     document.getElementById("error").innerHTML = "Please fill all fields.";
-    //     return;
-    // }
-    // if (!isValidName(name.value)) {
-    //     document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
-    //     return;
-    // }
-    // if (!isValidEmail(email)) {
-    //     document.getElementById("error").innerHTML = `Must be a valid email.`;
-    //     return;
-    // }
 
     var inputDate = new Date(date);
     var userAge = getAge(inputDate);
@@ -34,12 +20,14 @@ function submitForm() {
     clearField(email);
     clearField(password);
 }
+
 function getAge(birthDate) {
     var currentDate = new Date();
     var age = currentDate.getFullYear() - birthDate.getFullYear();
     return age;
 
 }
+
 function getRow(name, email, password, age, rowCounter){
     var encodedPassword = encodePassword(password);
     return `<tr id="row${rowCounter}">
@@ -54,20 +42,8 @@ function getRow(name, email, password, age, rowCounter){
             </tr>`;
 }
 
-function checkEmpty(field){
-    return field === "";
-}
-
 function clearField(field){
     field.value = "";
-}
-
-function isValidName(name){
-    return name.length < NAME_MAX && name.length > NAME_MIN;
-}
-
-function isValidEmail(email){
-    return VALID_EMAIL.test(String(email.value).toLowerCase());
 }
 
 function showPassword(){
@@ -149,19 +125,9 @@ function updateForm(rowNumber){
     var password = document.getElementById("password");
     var date = document.getElementById("birthDate").value;
 
-    if (checkEmpty(name.value) || checkEmpty(email.value) || checkEmpty(password.value) || checkEmpty(date)) {
-        document.getElementById("error").innerHTML = "Please fill all fields.";
-        return;
-    }
-
-    if (!isValidName(name.value)) {
-        document.getElementById("error").innerHTML = `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
-        return;
-    }
-
-    if (!isValidEmail(email)) {
-        document.getElementById("error").innerHTML = `Must be a valid email.`
-        return;
+    var validation = new UserValidator (name.value, email.value, password.value, date);
+    if (validation.validate()){
+        return document.getElementById("error").innerHTML = validation.validate();
     }
 
     var inputDate = new Date(date);
