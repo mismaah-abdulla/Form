@@ -17,7 +17,7 @@ function submitForm() {
     var user = new User (name.value, email.value, password.value, inputDate);
     users.push(user);
     
-    document.getElementById("tableRows").innerHTML += getRow(user.name, user.email, user.password, user.age, user.id);
+    document.getElementById("tableRows").innerHTML += getRow(user);
     rowCounter++;
     
     document.getElementById("error").innerHTML = "";
@@ -26,17 +26,16 @@ function submitForm() {
     clearField(password);
 }
 
-function getRow(name, email, password, age, rowCounter){
-    var encodedPassword = encodePassword(password);
-    return `<tr id="row${rowCounter}">
-            <td class="nameCell">${name}</td>
-            <td class="emailCell">${email}</td>
+function getRow(user){
+    return `<tr id="row${user.id}">
+            <td class="nameCell">${user.name}</td>
+            <td class="emailCell">${user.email}</td>
             <td class="passwordCell">
-                <span id="encodedPassword${rowCounter}">${encodedPassword}</span>
-                <button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${encodedPassword}', ${rowCounter})" onmouseup="hideDecodedPassword('${password}', ${rowCounter})">Decode</button>
+                <span id="encodedPassword${user.id}">${user.encodedPassword}</span>
+                <button style="float: right;" id="decodePass" onmousedown="decodeEncodedPassword('${user.encodedPassword}', ${user.id})" onmouseup="hideDecodedPassword('${user.password}', ${user.id})">Decode</button>
             </td>
-            <td>${age}</td>
-            <td class=buttonCell>${generateRowButtons(rowCounter)}</td>
+            <td>${user.age}</td>
+            <td class=buttonCell>${generateRowButtons(user.id)}</td>
             </tr>`;
 }
 
@@ -135,7 +134,7 @@ function updateForm(rowNumber){
     user.email = email.value;
     user.password = password.value;
     user.birthDate = inputDate;
-    document.getElementById(`row${rowNumber}`).innerHTML = getRow(user.name, user.email, user.password, user.age, user.id);
+    document.getElementById(`row${rowNumber}`).innerHTML = getRow(user);
 
     cancelUpdateForm(rowNumber);
 
