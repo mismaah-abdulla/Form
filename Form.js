@@ -1,4 +1,3 @@
-
 var users = [];
 function submitForm() {
     var name = document.getElementById("name");
@@ -105,7 +104,6 @@ function enableRowButtons(){
 function generateRowButtons(rowNumber){
     return `<button style="float:left;" onclick="deleteRow(${rowNumber})">Delete row</button> <button style="float:right;" onclick="editRow(${rowNumber})">Edit row</button>`
 }
-
 
 function updateForm(rowNumber){
     var name = document.getElementById("name");
