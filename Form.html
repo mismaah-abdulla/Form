@@ -29,6 +29,20 @@
     <script src="UserValidator.js"></script>
 </head>
 <body>
+<style>
+.demo-card-wide.mdl-card {
+  width: 512px;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('../assets/demos/welcome_card.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+</style>
+    
 <h1 id="heading">Form</h1>
     <div>Name: 
     <input  id="name" type="text" value=""> </div><br>
@@ -38,7 +52,7 @@
     <input id="password" type="password" value=""> <button onmousedown="showPassword()" onmouseup="hidePassword()">Show</button></div><br> 
     <div>Date of birth: 
     <input id="birthDate" type="date" value=""></div><br>
-    <div id="actionButtons"><button onclick="submitForm()">Submit</button></div><br>
+    <div id="actionButtons"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="submitForm()">Submit</button></div><br>
     <p id="error"></p><br>
     <table >
         <thead>
