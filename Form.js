@@ -5,10 +5,8 @@ function submitForm() {
     var password = document.getElementById("password");
     var date = document.getElementById("birthDate").value;
 
-    var validation = new UserValidator (name.value, email.value, password.value, date);
-    var errorMessage = validation.validate();
-    if (errorMessage){
-        document.getElementById("error").innerHTML = errorMessage;
+    var isValid =  doValidation(name.value, email.value, password.value, date);
+    if (!isValid){
         return;
     }
 
@@ -22,6 +20,16 @@ function submitForm() {
     clearField(email);
     clearField(password);
 }
+
+function doValidation(name, email, password, date){
+    var validation = new UserValidator(name, email, password, date);
+    var errorMessage = validation.validate();
+    if (errorMessage){
+        document.getElementById("error").innerHTML = errorMessage;
+        return false;
+    }
+    return true;
+}   
 
 function getRow(user){
     return `<tr id="row${user.id}">
@@ -111,9 +119,9 @@ function updateForm(rowNumber){
     var password = document.getElementById("password");
     var date = document.getElementById("birthDate").value;
 
-    var validation = new UserValidator (name.value, email.value, password.value, date);
-    if (validation.validate()){
-        return document.getElementById("error").innerHTML = validation.validate();
+    var isValid =  doValidation(name.value, email.value, password.value, date);
+    if (!isValid){
+        return;
     }
 
     var inputDate = new Date(date);
