@@ -15,7 +15,6 @@ function submitForm() {
     users.push(user);
     
     document.getElementById("tableRows").innerHTML += getRow(user);
-    document.getElementById("error").innerHTML = "";
     clearForm();
 }
 
@@ -56,6 +55,7 @@ function clearForm(){
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
+    document.getElementById("error").innerHTML = "";
 }
 
 function showPassword(){
@@ -102,10 +102,8 @@ function enableRowButtons(){
     var rows = allRows.childNodes;
     for (var x = 1; x < rows.length; x++){
         var rowId = rows[x].id.substring(3);
-    
         var buttonCells = document.querySelector(`#row${rowId} .buttonCell`);
         buttonCells.innerHTML = generateRowButtons(rowId);
-        
     }
 }
 
@@ -134,12 +132,10 @@ function updateForm(rowNumber){
     document.getElementById(`row${rowNumber}`).innerHTML = getRow(user);
 
     cancelUpdateForm();
-
 }
 
 function cancelUpdateForm(){
     clearForm();
     document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`
-    document.getElementById("error").innerHTML = "";
     enableRowButtons();
 }
