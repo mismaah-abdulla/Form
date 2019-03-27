@@ -1,9 +1,10 @@
 var users = [];
-function submitOrUpdateForm(rowNumber){
+function submitOrUpdateForm(){
     var name = document.getElementById("name").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var date = document.getElementById("birthDate").value;
+    var rowNumber = document.getElementById("rowNumberHidden").value
 
     var isValid =  doValidation(name, email, password, date);
     if (!isValid){
@@ -11,7 +12,7 @@ function submitOrUpdateForm(rowNumber){
     }
     
     var inputDate = new Date(date);
-    if (typeof(rowNumber) === "undefined"){
+    if (rowNumber === ""){
         submitForm(name, email, password, inputDate);
     } else {
         updateForm(rowNumber, name, email, password, inputDate);
@@ -63,6 +64,7 @@ function clearForm(){
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("error").innerHTML = "";
+    document.getElementById("rowNumberHidden").value = "";
 }
 
 function showPassword(){
@@ -91,10 +93,13 @@ function returnRowContent(rowNumber){
     document.getElementById("name").value = user.name;
     document.getElementById("email").value = user.email;
     document.getElementById("password").value = user.password;
+    document.getElementById("rowNumberHidden").value = user.id;
+
 }
 
 function changeFormButtonsForEditing(rowNumber){
-    document.getElementById("actionButtons").innerHTML = `<button onclick="submitOrUpdateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm()">Cancel</button>`;
+    document.getElementById("actionButtons").innerHTML = "Update"
+    document.getElementById("updateButtons").style.display = "inline-block"
 }
 
 function disableRowButtons(){
@@ -119,7 +124,7 @@ function generateRowButtons(rowNumber){
 }
 
 function updateForm(rowNumber, name, email, password, inputDate){
-    var user = users.find(x => x.id === rowNumber);
+    var user = users.find(x => x.id === parseInt(rowNumber));
     user.name = name;
     user.email = email;
     user.password = password;
@@ -128,6 +133,7 @@ function updateForm(rowNumber, name, email, password, inputDate){
 }
 
 function cancelUpdateForm(){
-    document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`;
+    document.getElementById("actionButtons").innerHTML = "Submit"
+    document.getElementById("updateButtons").style.display = "none"
     enableRowButtons();
 }
