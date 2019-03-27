@@ -1,21 +1,28 @@
 var users = [];
-function submitForm() {
-    var name = document.getElementById("name");
-    var email = document.getElementById("email");
-    var password = document.getElementById("password");
+function submitOrUpdateForm(rowNumber){
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
     var date = document.getElementById("birthDate").value;
 
-    var isValid =  doValidation(name.value, email.value, password.value, date);
+    var isValid =  doValidation(name, email, password, date);
     if (!isValid){
         return;
     }
-
-    var inputDate = new Date(date);
-    var user = new User (name.value, email.value, password.value, inputDate);
-    users.push(user);
     
-    document.getElementById("tableRows").innerHTML += getRow(user);
+    var inputDate = new Date(date);
+    if (typeof(rowNumber) === "undefined"){
+        submitForm(name, email, password, inputDate);
+    } else {
+        updateForm(rowNumber, name, email, password, inputDate);
+    }
     clearForm();
+}
+
+function submitForm(name, email, password, inputDate) {
+    var user = new User (name, email, password, inputDate);
+    users.push(user);
+    document.getElementById("tableRows").innerHTML += getRow(user);
 }
 
 function doValidation(name, email, password, date){
@@ -87,7 +94,7 @@ function returnRowContent(rowNumber){
 }
 
 function changeFormButtonsForEditing(rowNumber){
-    document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm()">Cancel</button>`;
+    document.getElementById("actionButtons").innerHTML = `<button onclick="submitOrUpdateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm()">Cancel</button>`;
 }
 
 function disableRowButtons(){
@@ -111,33 +118,16 @@ function generateRowButtons(rowNumber){
     return `<button style="float:left;" onclick="deleteRow(${rowNumber})">Delete row</button> <button style="float:right;" onclick="editRow(${rowNumber})">Edit row</button>`
 }
 
-function updateForm(rowNumber){
-    var name = document.getElementById("name");
-    var email = document.getElementById("email");
-    var password = document.getElementById("password");
-    var date = document.getElementById("birthDate").value;
-
-    var isValid =  doValidation(name.value, email.value, password.value, date);
-    if (!isValid){
-        return;
-    }
-
-    var inputDate = new Date(date);
-
+function updateForm(rowNumber, name, email, password, inputDate){
     var user = users.find(x => x.id === rowNumber);
-    user.name = name.value;
-    user.email = email.value;
-    user.password = password.value;
+    user.name = name;
+    user.email = email;
+    user.password = password;
     user.birthDate = inputDate;
     document.getElementById(`row${rowNumber}`).innerHTML = getRow(user);
-
-    cancelUpdateForm();
 }
 
-    
-
 function cancelUpdateForm(){
-    clearForm();
     document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`;
     enableRowButtons();
 }
