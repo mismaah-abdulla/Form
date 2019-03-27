@@ -16,9 +16,7 @@ function submitForm() {
     
     document.getElementById("tableRows").innerHTML += getRow(user);
     document.getElementById("error").innerHTML = "";
-    clearField(name);
-    clearField(email);
-    clearField(password);
+    clearForm();
 }
 
 function doValidation(name, email, password, date){
@@ -54,8 +52,10 @@ function decodePassword(userId){
     document.getElementById(`encodedPassword${userId}`).innerHTML = user.password;
 }
 
-function clearField(field){
-    field.value = "";
+function clearForm(){
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
 }
 
 function showPassword(){
@@ -138,9 +138,7 @@ function updateForm(rowNumber){
 }
 
 function cancelUpdateForm(rowNumber){
-    clearField(document.getElementById("name"));
-    clearField(document.getElementById("email"));
-    clearField(document.getElementById("password"));
+    clearForm();
     document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`
     document.getElementById("error").innerHTML = "";
     enableRowButtons();
