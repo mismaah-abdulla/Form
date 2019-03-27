@@ -134,8 +134,10 @@ function updateForm(rowNumber){
     cancelUpdateForm();
 }
 
+    
+
 function cancelUpdateForm(){
     clearForm();
-    document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`
+    document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`;
     enableRowButtons();
 }
