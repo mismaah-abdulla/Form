@@ -14,6 +14,10 @@ class User {
         return age;
     }
 
+    get dateOfBirth(){
+        return this.birthDate.toISOString().split('T')[0];
+    }
+
     get encodedPassword(){
         var encodedPassword = window.btoa(this.password);
         return encodedPassword;
