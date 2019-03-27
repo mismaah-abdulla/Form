@@ -63,6 +63,7 @@ function clearForm(){
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
+    document.getElementById("birthDate").value = "";
     document.getElementById("error").innerHTML = "";
     document.getElementById("rowNumberHidden").value = "";
 }
@@ -93,7 +94,6 @@ function returnRowContent(rowNumber){
     document.getElementById("name").value = user.name;
     document.getElementById("email").value = user.email;
     document.getElementById("password").value = user.password;
-    console.log(user.dateOfBirth);
     document.getElementById("birthDate").value = user.dateOfBirth;
     document.getElementById("rowNumberHidden").value = user.id;
 }
@@ -134,6 +134,7 @@ function updateForm(rowNumber, name, email, password, inputDate){
 }
 
 function cancelUpdateForm(){
+    clearForm();
     document.getElementById("actionButtons").innerHTML = "Submit"
     document.getElementById("updateButtons").style.display = "none"
     enableRowButtons();
