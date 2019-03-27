@@ -87,7 +87,7 @@ function returnRowContent(rowNumber){
 }
 
 function changeFormButtonsForEditing(rowNumber){
-    document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm(${rowNumber})">Cancel</button>`;
+    document.getElementById("actionButtons").innerHTML = `<button onclick="updateForm(${rowNumber})">Update</button><button onclick="cancelUpdateForm()">Cancel</button>`;
 }
 
 function disableRowButtons(){
@@ -133,11 +133,11 @@ function updateForm(rowNumber){
     user.birthDate = inputDate;
     document.getElementById(`row${rowNumber}`).innerHTML = getRow(user);
 
-    cancelUpdateForm(rowNumber);
+    cancelUpdateForm();
 
 }
 
-function cancelUpdateForm(rowNumber){
+function cancelUpdateForm(){
     clearForm();
     document.getElementById("actionButtons").innerHTML = `<button onclick="submitForm()">Submit</button>`
     document.getElementById("error").innerHTML = "";
