@@ -17,13 +17,13 @@ function submitOrUpdateForm(){
     } else {
         updateForm(rowNumber, name, email, password, inputDate);
     }
-    clearForm();
 }
 
 function submitForm(name, email, password, inputDate) {
     var user = new User (name, email, password, inputDate);
     users.push(user);
     document.getElementById("tableRows").innerHTML += getRow(user);
+    clearForm();
 }
 
 function doValidation(name, email, password, date){
@@ -131,6 +131,7 @@ function updateForm(rowNumber, name, email, password, inputDate){
     user.password = password;
     user.birthDate = inputDate;
     document.getElementById(`row${rowNumber}`).innerHTML = getRow(user);
+    cancelUpdateForm();
 }
 
 function cancelUpdateForm(){
