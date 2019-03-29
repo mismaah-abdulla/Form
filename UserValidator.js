@@ -1,5 +1,5 @@
 const NAME_MAX = 30;
-const NAME_MIN = 5;
+const NAME_MIN = 1;
 const VALID_EMAIL = /\S+@\S+\.\S+/;
 
 class UserValidator {
@@ -16,7 +16,7 @@ class UserValidator {
         }
 
         if (!this.isValidName()){
-            return `Name should be between ${NAME_MAX} and ${NAME_MIN} characters.`;
+            return `Name should be between ${NAME_MIN} and ${NAME_MAX} characters.`;
         }
 
         if (!this.isValidEmail()){
