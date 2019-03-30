@@ -64,7 +64,7 @@ function clearForm(){
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("birthDate").value = "";
-    document.getElementById("error").innerHTML = "";
+    document.getElementById("error").innerHTML = "&nbsp;";
     document.getElementById("rowNumberHidden").value = "";
 }
 
@@ -84,6 +84,7 @@ function deleteRow(rowNumber){
 }
 
 function editRow(rowNumber){
+    clearForm();
     returnRowContent(rowNumber);
     changeFormButtonsForEditing(rowNumber);
     disableRowButtons();
