@@ -32,6 +32,16 @@
     .container {
         width: 300px;
         margin: auto;
+        border-radius: 15px;
+        padding: 2px 30px 0px 30px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        background-color: rgb(206, 206, 206);
+    }
+
+    .table {
+        width: 70%;
+        margin: auto;
     }
     </style>
 </head>
@@ -51,6 +61,7 @@
         <button style="display: none" id="updateButtons" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="cancelUpdateForm()">Cancel</button><br>
         <p id="error"></p><br>
 </div>
+<div class="table">
     <table >
         <thead>
             <tr>
@@ -64,5 +75,6 @@
         <tbody id="tableRows">
         </tbody>
     </table>
+</div>
 </body>
 </html>
