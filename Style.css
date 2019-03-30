@@ -1,0 +1,33 @@
+body {
+    background-color: #f4f4f4;
+    line-height: 1.5em;
+}
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+}
+th {
+    width: 200px;
+    border: 1px solid black;
+}
+p {
+    color:red;
+}
+button {
+    text-align: right;
+}
+.container {
+    width: 300px;
+    margin: auto;
+    border-radius: 15px;
+    padding: 2px 30px 0px 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: rgb(206, 206, 206);
+}
+
+.table {
+    width: 70%;
+    margin: auto;
+}
