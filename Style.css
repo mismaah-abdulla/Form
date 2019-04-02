@@ -1,14 +1,19 @@
+html, body {
+    width: 100%;
+}
+
 body {
     background-color: #f4f4f4;
     line-height: 1.5em;
 }
-table, td {
+table {
     border: 1px solid black;
     border-collapse: collapse;
-    
+    table-layout: fixed;
+    width: 70%;
+    margin: 0 auto;
 }
-th {
-    width: 200px;
+th, td {
     border: 1px solid black;
 }
 .errorMessage {
@@ -26,9 +31,4 @@ button {
     margin-top: 20px;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
-}
-
-.table {
-    width: 70%;
-    margin: auto;
 }
