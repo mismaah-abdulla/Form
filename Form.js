@@ -22,8 +22,26 @@ function submitOrUpdateForm(){
 function submitForm(name, email, password, inputDate) {
     var user = new User (name, email, password, inputDate);
     users.push(user);
+    postUserData(user);
     document.getElementById("tableRows").innerHTML += getRow(user);
     clearForm();
+}
+
+function postUserData(user){
+    fetch("http://127.0.0.1:5000/api",
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+            'name': user.name,
+            'email': user.email,
+            'password': user.password,
+            'dateOfBirth': user.dateOfBirth
+        })
+    })
 }
 
 function doValidation(name, email, password, date){
